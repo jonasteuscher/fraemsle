@@ -5,7 +5,7 @@
 1. Clone this project
 
 ```sh
-git clone [https://github.com/jonasteuscher/fraemsle.git](https://github.com/jonasteuscher/fraemsle.git)
+git clone https://github.com/jonasteuscher/fraemsle.git
 ```
 
 2. Change into the directory and install the dependencies
