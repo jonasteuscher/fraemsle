@@ -1,10 +1,22 @@
 import { supabase } from '../client'
 import { useEffect } from 'react';
-
+import router from 'next/router';
 export default function RecipeDetail({ user }) {
   useEffect(() => {
     fetchRecipe();
+    checkItem();
   }, [])
+  function checkItem() {
+    if (localStorage.getItem('clickedItem') === null) {
+      router.push('/recipes');
+    }
+  }
+  function backToRecipes() {
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem('clickedItem');
+      window.location.href = '/recipes';
+    }
+  }
   return (
     <div>
       <header>
@@ -15,6 +27,7 @@ export default function RecipeDetail({ user }) {
       </header>
       <main>
         <h4>Recipe Detail</h4>
+        <button id="backButton" onClick={backToRecipes}>Back</button>
         <section className="recipe-detail" id="recipeDetail">
         </section>
       </main>
@@ -31,13 +44,21 @@ async function fetchRecipe() {
     if (error) console.log("error", error);
     else {
       data.forEach(recipe => {
+        console.log(recipe);
+        const ingredientList = recipe.ingredients.split(',');
         const recipeCardDetail = `
-        <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
+        <div class="" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
         <img src="${recipe.image}" alt="${recipe.title}" width="100%">
         <div class="recipe-container">
-        <h2>${recipe.title}</h2>
-        <p>${recipe.servings}</p>
-        <p>${recipe.time_to_cook} minutes</p>
+        <h1>${recipe.title}</h1>
+        <p>Servings: ${recipe.servings}</p>
+        <p>Time to cook: ${recipe.time_to_cook} minutes</p>
+        <br/>
+        <h2>Ingredients</h2>
+        <p>${ingredientList}}</p>
+        <br/>
+        <h2>Instructions</h2>
+        <p>${recipe.description}</p>
         </div>
         </div> <br>`;
         if (recipeDetail) {
