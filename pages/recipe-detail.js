@@ -1,9 +1,12 @@
 import { supabase } from '../client'
+import { useEffect } from 'react';
 
-export default function Recipes({ user }) {
-  fetchRecipes();
+export default function RecipeDetail({ user }) {
+  useEffect(() => {
+    fetchRecipe();
+  }, [])
   return (
-      <div>
+    <div>
       <header>
         <div className="signetbild">
           <img src="../img/signet.png" alt="signet" />
@@ -11,22 +14,24 @@ export default function Recipes({ user }) {
 
       </header>
       <main>
-        <h4>Recipe Collection</h4>
-        <section className="recipe-grid" id="recipeGrid">
+        <h4>Recipe Detail</h4>
+        <section className="recipe-detail" id="recipeDetail">
         </section>
       </main>
-      </div>
+    </div>
   )
 }
 
-async function fetchRecipes() {
+async function fetchRecipe() {
   try {
-    const { data, error } = await supabase.from("recipes").select();
+    const { data, error } = await supabase
+      .from('recipes')
+      .select()
+      .eq('id', localStorage.getItem('clickedItem'))
     if (error) console.log("error", error);
     else {
-      // Populate the recipe grid with data
       data.forEach(recipe => {
-        const recipeCard = `
+        const recipeCardDetail = `
         <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
         <img src="${recipe.image}" alt="${recipe.title}" width="100%">
         <div class="recipe-container">
@@ -35,14 +40,14 @@ async function fetchRecipes() {
         <p>${recipe.time_to_cook} minutes</p>
         </div>
         </div> <br>`;
-        if (recipeGrid) {
-          recipeGrid.innerHTML += recipeCard;
-        }   
+        if (recipeDetail) {
+          recipeDetail.innerHTML += recipeCardDetail;
+        }
         //document.getElementById(recipe.id).addEventListener("click", () => showDetails(recipe.id));
       });
     }
   } catch (error) {
-      console.error("An error occurred while fetching data", error);
+    console.error("An error occurred while fetching data", error);
   }
 }
 

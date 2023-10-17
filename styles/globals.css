@@ -101,6 +101,7 @@ float: right;
 
 .recipe-card {
   display: flex;
+  cursor: pointer;
   flex-wrap: wrap;
   min-height: 150px;
   min-width: 260px;

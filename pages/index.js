@@ -6,6 +6,7 @@ import { supabase } from '../client'
 
 export default function Home() {
   const [authenticatedState, setAuthenticatedState] = useState(false)
+  const [error, setError] = useState('')
   async function fetchProfile() {
     const profileData = await supabase.auth.user()
     if (!profileData) {
@@ -28,13 +29,16 @@ export default function Home() {
             /></div>
           <h1>fr&auml;msle</h1>
           <h2 id="slogan">Discover the power of healthy food!</h2>
+          {error &&
+            <p>{error}</p>
+          }
           {
             authenticatedState === 'not-authenticated' && (
               <Link href="/sign-in">
                 <button id="logoutButton">Sign In</button>
               </Link>
             )}
-            </div>
+        </div>
       </header>
     </div>
   )

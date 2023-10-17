@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const [authenticatedState, setAuthenticatedState] = useState('not-authenticated')
+  const [error, setError] = useState()
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       handleAuthChange(event, session)
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps }) {
         setAuthenticatedState('not-authenticated')
       }
     })
+    checkError()
     checkUser()
     return () => {
       authListener.unsubscribe()
@@ -27,6 +29,17 @@ function MyApp({ Component, pageProps }) {
     const user = await supabase.auth.user()
     if (user) {
       setAuthenticatedState('authenticated')
+    }
+  }
+  async function checkError() {
+    if (window.location.hash) {
+      const errorFromQuery = queryToJson(window.location.hash);
+      if (errorFromQuery.error_description && errorFromQuery.error_description.includes('invalid')) {
+        router.push('/error')
+        localStorage.setItem('error', "The link is invalid or has expired. Please try again.")
+      } else {
+        localStorage.setItem('error', errorFromQuery.error_description)
+      }
     }
   }
   async function handleAuthChange(event, session) {
@@ -40,6 +53,34 @@ function MyApp({ Component, pageProps }) {
   async function signOut() {
     await supabase.auth.signOut()
     router.push('/sign-in')
+  }
+  function queryToJson(queryString) {
+    // Removing any leading characters like '#', which are sometimes present in URL hash parameters
+    if (queryString.startsWith('#')) {
+      queryString = queryString.substring(1);
+    }
+
+    // Splitting the query string on each '&'
+    const pairs = queryString.split('&');
+
+    // The object where we'll store our query parameters
+    const queryObject = {};
+
+    for (let i = 0; i < pairs.length; i++) {
+      // Splitting each key-value pair
+      const pair = pairs[i].split('=');
+
+      // The first element is the key, the second is the value.
+      // We use 'decodeURIComponent' to handle any encoded characters.
+      const key = decodeURIComponent(pair[0]);
+      const value = decodeURIComponent(pair[1] || '');
+
+      // Adding the key-value pair to the object
+      queryObject[key] = value;
+    }
+
+    // Converting the object to a JSON string with formatting (optional)
+    return queryObject;
   }
   return (
     <div>
@@ -65,7 +106,7 @@ function MyApp({ Component, pageProps }) {
           <button id="logoutButton" onClick={signOut}>Sign Out</button>
         )
       }
-      <Component {...pageProps} />
+      <Component {...pageProps} error={error} />
     </div>
   )
 }
