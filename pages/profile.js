@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../client'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+
 
 export default function Profile() {
   const [profile, setProfile] = useState(null)

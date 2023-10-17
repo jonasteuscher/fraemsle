@@ -1,6 +1,8 @@
 import { supabase } from '../client'
 import { useEffect } from 'react';
 import router from 'next/router';
+import Image from 'next/image'
+
 export default function RecipeDetail({ user }) {
   useEffect(() => {
     fetchRecipe();

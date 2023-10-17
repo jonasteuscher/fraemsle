@@ -1,4 +1,5 @@
 import { supabase } from '../client'
+import Image from 'next/image'
 
 export default function Recipes({ user }) {
   fetchRecipes();
