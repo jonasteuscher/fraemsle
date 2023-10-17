@@ -21,7 +21,7 @@ export default function RecipeDetail({ user }) {
     <div>
       <header>
         <div className="signetbild">
-          <img src="../img/signet.png" alt="signet" />
+          <Image src="../img/signet.png" alt="signet" />
         </div>
 
       </header>
@@ -48,7 +48,7 @@ async function fetchRecipe() {
         const ingredientList = recipe.ingredients.split(',');
         const recipeCardDetail = `
         <div class="" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
-        <img src="${recipe.image}" alt="${recipe.title}" width="100%">
+        <Image src="${recipe.image}" alt="${recipe.title}" width="100%"/>
         <div class="recipe-container">
         <h1>${recipe.title}</h1>
         <p>Servings: ${recipe.servings}</p>

@@ -6,7 +6,7 @@ export default function Recipes({ user }) {
       <div>
       <header>
         <div className="signetbild">
-          <img src="../img/signet.png" alt="signet" />
+          <Image src="../img/signet.png" alt="signet" />
         </div>
 
       </header>
@@ -28,7 +28,7 @@ async function fetchRecipes() {
       data.forEach(recipe => {
         const recipeCard = `
         <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
-        <img src="${recipe.image}" alt="${recipe.title}" width="100%">
+        <Image src="${recipe.image}" alt="${recipe.title}" width="100%">
         <div class="recipe-container">
         <h2>${recipe.title}</h2>
         <p>${recipe.servings}</p>

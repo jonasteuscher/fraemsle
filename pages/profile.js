@@ -33,7 +33,7 @@ export default function Profile() {
     <div>
       <h2>Hello {profile.user_metadata.full_name}</h2>
         <br/>
-      <img
+      <Image
         src={profile.user_metadata.avatar_url}
         alt="Avatar" />
         <br/>
