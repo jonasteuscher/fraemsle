@@ -10,19 +10,12 @@ export default function Profile() {
   useEffect(() => {
     fetchProfile()
   }, [])
-  async function update() {
-    const { user, error } = await supabase.auth.update({
-      data: {
-        city: "New York"
-      }
-    })
-  }
   async function fetchProfile() {
     const profileData = await supabase.auth.user()
     if (!profileData) {
       router.push('/sign-in')
     } else {
-      setProfile(profileData)
+    setProfile(profileData)
     }
   }
   async function signOut() {

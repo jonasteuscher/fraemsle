@@ -46,7 +46,6 @@ async function fetchRecipe() {
     if (error) console.log("error", error);
     else {
       data.forEach(recipe => {
-        console.log(recipe);
         const ingredientList = recipe.ingredients.split(',');
         const recipeCardDetail = `
         <div class="" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
