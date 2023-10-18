@@ -7,7 +7,7 @@ export default function Recipes({ user }) {
       <div>
       <header>
         <div className="signetbild">
-          <Image src="../img/signet.png" alt="signet" />
+          <Image width="100%" height="100%" src="/public/img/signet.png" alt="signet" />
         </div>
 
       </header>

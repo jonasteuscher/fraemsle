@@ -31,17 +31,18 @@ export default function Profile() {
   }
   if (!profile) return null
   if (profile.user_metadata) {
-    return(
-    <div>
-      <h2>Hello {profile.user_metadata.full_name}</h2>
-        <br/>
-      <Image
-        src={profile.user_metadata.avatar_url}
-        alt="Avatar" />
-        <br/>
-        <br/>
-      <p>{profile.email}</p>
-    </div>)
+    return (
+      <div>
+        <h2>Hello {profile.user_metadata.full_name}</h2>
+        <br />
+        <Image
+          width="100%" height="100%"
+          src={profile.user_metadata.avatar_url}
+          alt="Avatar" />
+        <br />
+        <br />
+        <p>{profile.email}</p>
+      </div>)
   } else {
     return (
       <div style={{ maxWidth: '420px', margin: '96px auto' }}>

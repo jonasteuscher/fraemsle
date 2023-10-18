@@ -22,7 +22,7 @@ export default function Home() {
         <div>
           <div id="logobild">
             <Image
-              src="/img/Logo.png"
+              src="/public/img/Logo.png"
               width="200%"
               height="200%"
               alt="Picture of the author"
