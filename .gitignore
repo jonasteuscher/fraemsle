@@ -26,3 +26,5 @@ yarn-error.log*
 
 # vscode
 .vscode
+
+ec2_keypair.pem
