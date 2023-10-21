@@ -24,6 +24,7 @@ export default function Profile() {
   }
   if (!profile) return null
   if (profile.user_metadata) {
+    console.log(profile)
     return (
       <div>
         <h2>Hello {profile.user_metadata.full_name}</h2>
