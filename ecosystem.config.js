@@ -7,7 +7,7 @@ module.exports = {
     production : {
       key: 'ec2_keypair.pem',
       user : 'ubuntu',
-      host : '35.158.86.16',
+      host : '',
       ref  : 'origin/main',
       repo : 'git@github.com:jonasteuscher/fraemsle.git', 
       path : '/home/ubuntu',
