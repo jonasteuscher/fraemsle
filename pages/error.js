@@ -16,7 +16,7 @@ export default function Profile() {
               <br className="clear" /></span>
           </div>
         </label>}
-      <Link href="/sign-in">
+      <Link href="/sign-in" passHref>
         <button id="logoutButton">Back to Login</button>
       </Link>
     </div>

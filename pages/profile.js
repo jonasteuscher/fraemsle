@@ -20,11 +20,12 @@ export default function Profile() {
   }
   async function signOut() {
     await supabase.auth.signOut()
+    localStorage.clear();
     router.push('/sign-in')
   }
   if (!profile) return null
   if (profile.user_metadata) {
-    console.log(profile)
+    localStorage.setItem("userID", profile.id)
     return (
       <div>
         <h2>Hello {profile.user_metadata.full_name}</h2>

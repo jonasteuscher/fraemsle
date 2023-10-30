@@ -25,16 +25,16 @@ export default function Home() {
               src="/public/img/Logo.png"
               width="200%"
               height="200%"
-              alt="Picture of the author"
+              alt="Logo"
             /></div>
-          <h1>fr&auml;msle</h1>
+          <h1>NutriDish</h1>
           <h2 id="slogan">Discover the power of healthy food!</h2>
           {error &&
             <p>{error}</p>
           }
           {
             authenticatedState === 'not-authenticated' && (
-              <Link href="/sign-in">
+              <Link href="/sign-in" passHref>
                 <button id="logoutButton">Sign In</button>
               </Link>
             )}

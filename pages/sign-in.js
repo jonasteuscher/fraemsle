@@ -70,9 +70,9 @@ export default function SignIn() {
                 src="/public/img/Logo.png"
                 width="200%"
                 height="200%"
-                alt="Picture of the author"
+                alt="Logo"
               /></div>
-            <h1>fr&auml;msle</h1>
+            <h1>NutriDish</h1>
             <br />
           </div>
         </header>
@@ -91,9 +91,9 @@ export default function SignIn() {
                   src="/img/Logo.png"
                   width="200%"
                   height="200%"
-                  alt="Picture of the author"
+                  alt="Logo"
                 /></div>
-              <h1>fr&auml;msle</h1>
+              <h1>NutriDish</h1>
               <br />
             </div>
           </header>
@@ -112,9 +112,9 @@ export default function SignIn() {
                   src="/img/Logo.png"
                   width="200%"
                   height="200%"
-                  alt="Picture of the author"
+                  alt="Logo"
                 /></div>
-              <h1>fr&auml;msle</h1>
+              <h1>NutriDish</h1>
               <h2 id="slogan">Discover the power of healthy food!</h2>
             </div>
           </header>

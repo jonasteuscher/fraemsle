@@ -51,7 +51,8 @@ function MyApp({ Component, pageProps }) {
     })
   }
   async function signOut() {
-    await supabase.auth.signOut()
+    await supabase.auth.signOut();
+    localStorage.clear();
     router.push('/sign-in')
   }
   function queryToJson(queryString) {

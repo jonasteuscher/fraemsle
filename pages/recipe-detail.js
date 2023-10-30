@@ -16,9 +16,11 @@ export default function RecipeDetail({ user }) {
   function backToRecipes() {
     if (typeof window !== 'undefined') {
       window.localStorage.removeItem('clickedItem');
-      window.location.href = '/recipes';
+      window.history.go(-1)
+      window.location.reload();
     }
   }
+  
   return (
     <div>
       <header>
@@ -37,6 +39,44 @@ export default function RecipeDetail({ user }) {
   )
 }
 
+async function changeFavorite(recipeID) {
+  const isFavorite = await checkIfIDExistsInFavorites(recipeID);
+  if (isFavorite === true) {
+    console.log(recipeID + " exists in favorites and will be deleted");
+    //delete this id from favorites
+    const { data, error } = await supabase
+    .from('favorites')
+    .delete()
+    .eq('recipe_id', recipeID);
+    if (error) {
+      console.error("Error deleting data:", error);
+      return false;
+    }
+  } else {
+    console.log("ID does not exist in favorites");
+    const { error } = await supabase
+    .from('favorites')
+    .insert({recipe_id: recipeID, user_id: localStorage.getItem('userID')})
+    }
+    window.location.reload();
+  }
+
+
+async function checkIfIDExistsInFavorites(currentID) {
+  // check if id is in table favorites
+  const { data, error } = await supabase
+  .from('favorites')
+  .select('recipe_id')
+  .eq('recipe_id', currentID)
+  .eq('user_id', localStorage.getItem('userID'))
+  
+  if (error) {
+      console.error("Error fetching data:", error);
+      return false;
+  }
+  return data.length > 0;
+}
+
 async function fetchRecipe() {
   try {
     const { data, error } = await supabase
@@ -45,11 +85,20 @@ async function fetchRecipe() {
       .eq('id', localStorage.getItem('clickedItem'))
     if (error) console.log("error", error);
     else {
+      const isFavorite = await checkIfIDExistsInFavorites(localStorage.getItem('clickedItem'));
       data.forEach(recipe => {
         const ingredientList = recipe.ingredients.split(',');
+        let likeButton;
+        console.log(isFavorite);
+        if (isFavorite === true) {
+          likeButton = `<Image id="likeButton" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`
+        } else {
+          likeButton = `<Image id="likeButton" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fdisliked.png&w=640&q=75" alt="signet" />`
+        }
         const recipeCardDetail = `
-        <div class="" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
+        <div class="" id="${recipe.id}">
         <Image width="100%" height="100%" src="${recipe.image}" alt="${recipe.title}" width="100%"/>
+        ${likeButton}
         <div class="recipe-container">
         <h1>${recipe.title}</h1>
         <p>Servings: ${recipe.servings}</p>
@@ -65,7 +114,7 @@ async function fetchRecipe() {
         if (recipeDetail) {
           recipeDetail.innerHTML += recipeCardDetail;
         }
-        //document.getElementById(recipe.id).addEventListener("click", () => showDetails(recipe.id));
+        document.getElementById("likeButton").addEventListener("click", () => changeFavorite(recipe.id));
       });
     }
   } catch (error) {
