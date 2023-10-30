@@ -17,7 +17,6 @@ export default function RecipeDetail({ user }) {
     if (typeof window !== 'undefined') {
       window.localStorage.removeItem('clickedItem');
       window.history.go(-1)
-      window.location.reload();
     }
   }
   
