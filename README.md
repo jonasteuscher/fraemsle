@@ -21,3 +21,10 @@ npm install
 ```sh
 npm run dev
 ```
+
+4. Bei Fehlermeldung Error: error:0308010C:digital envelope routines::unsupported
+```sh
+export NODE_OPTIONS=--openssl-legacy-provider
+```
+
+->> Dann Schritt 3. erneut ausführen
