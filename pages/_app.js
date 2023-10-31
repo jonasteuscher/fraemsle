@@ -84,7 +84,9 @@ function MyApp({ Component, pageProps }) {
     return queryObject;
   }
   return (
+    
     <div>
+      <title>NutriDish</title>
       <nav style={navStyle}>
         <Link href="/">
           <a style={linkStyle}>Home</a>
