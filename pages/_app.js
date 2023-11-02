@@ -95,13 +95,13 @@ function MyApp({ Component, pageProps }) {
           <a style={linkStyle}>Profile</a>
         </Link>
         <Link href="/recipes">
-          <a style={linkStyle}>Recipes</a>
-        </Link>
-        <Link href="/favorites">
-          <a style={linkStyle}>Favorites</a>
+          <a style={linkStyle}>Newest recipes</a>
         </Link>
         <Link href="/search">
           <a style={linkStyle}>Search</a>
+        </Link>
+        <Link href="/favorites">
+          <a style={linkStyle}>Favorites</a>
         </Link>
       </nav>
       {
