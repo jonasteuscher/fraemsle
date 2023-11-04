@@ -10,6 +10,14 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+@font-face {
+  font-family: 'sofia_proregular';
+  src: url('./font/sofia_pro_regular-webfont.woff2') format('woff2'),
+       url('./font/sofia_pro_regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -109,11 +117,11 @@ float: right;
   flex-wrap: wrap;
   min-height: 150px;
   min-width: 260px;
-  max-width: 420px;
   transition: 0.3s;
   border-radius: 7px;
   background: rgba(217, 217, 217, 0.30);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  margin: 1%;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -122,14 +130,23 @@ float: right;
 }
 
 .recipe-card img {
-  width: 50%;
+  width: 40%;
   object-fit: cover;
   border-radius: 7px;
 }
 
 .recipe-container {
-  width: 40%;
-  padding: 5%
+  width: 60%;
+  padding: 5%;
+  position: relative;
+}
+
+.recipe-container img{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
 }
 
 .recipe-container h2{
@@ -142,6 +159,31 @@ float: right;
   font-family: 'sofia_proregular';
   font-size: 18px;
   text-align: left;
+}
+
+/************************************/
+/******** Rezepte*Detail*Page********/
+/************************************/
+
+.recipe-detail div .recipe-container {
+  width: 100%;
+}
+
+.recipe-container h1 {
+text-align: left;
+}
+
+.recipeimage {
+  height: 400px;
+  object-fit: cover;
+}
+
+#likeButton{
+  float: right;
+  margin: 25px 10px 25px 0;
+  height: 36px;
+  width: 36px;
+  cursor: pointer;
 }
 
 /************************************/
@@ -165,7 +207,7 @@ main {
 }
 
 main input {
-  width: 74%;
+  width: 80%;
   margin: 15px 10% 15px 10%;
   height: 56px;
   border-radius: 7px;
@@ -199,7 +241,10 @@ background: var(--Secondary-Green, #556736);
   }
 
 #logoutButton{
-  width: 80%;
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100px;
   margin: 15px 10% 15px 10%;
   height: 56px;
   border-radius: 7px; 
@@ -207,7 +252,7 @@ background: var(--Secondary-Green, #556736);
   color: #FFF;
   font-size: 15px;
   border: 0px;
-background: var(--Primary-Green, #D4D577);
+  background: var(--Primary-Green, #D4D577);
 }
 
 #logoutButton:hover{
@@ -215,15 +260,16 @@ background: var(--Primary-Green, #D4D577);
 }
 
 #backButton{
-  width: 80%;
-  margin: 15px 10% 15px 10%;
+  width: 100px;
+  float: left;
+  margin: 15px 0;
   height: 56px;
   border-radius: 7px; 
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   color: #FFF;
   font-size: 15px;
   border: 0px;
-background: var(--Primary-Green, grey);
+  background: var(--Primary-Green, grey);
 }
 
 #backButton:hover{
@@ -552,17 +598,6 @@ background: dodgerblue;
 }
 
 
-@font-face {
-  font-family: 'sofia_proregular';
-  src: url('./font/sofia_pro_regular-webfont.woff2') format('woff2'),
-       url('./font/sofia_pro_regular-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-
-}
-
-
-
 /* SLIDER */
 /* Price Range */
 input[type="range"]::-webkit-slider-thumb {
@@ -572,4 +607,47 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
   -webkit-appearance: none;
   @apply bg-green-500;
+}
+
+/******************/
+/****Responsive****/
+/******************/
+
+@media only screen and (max-width: 4000px) {
+  main{
+    padding: 0 5%;
+  }
+  .recipe-grid{
+    max-width: 1500px;
+  }
+  .recipe-card {
+   width: 31.33%;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  main{
+    padding: 0 5%;
+  }
+  .recipe-card {
+   width: 48%;
+  }
+
+  .recipeimage {
+    height: 400px;
+  }
+
+}
+
+@media only screen and (max-width: 800px) {
+  main{
+    padding: 0 2%;
+  }
+  .recipe-card {
+   width: 100%;
+   margin: 1% 0;
+  }
+  .recipeimage {
+    height: 250px;
+  }
 }
