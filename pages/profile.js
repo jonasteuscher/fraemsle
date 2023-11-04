@@ -27,8 +27,8 @@ export default function Profile() {
   if (profile.user_metadata) {
     localStorage.setItem("userID", profile.id)
     return (
-      <div>
-        <h2>Hello {profile.user_metadata.full_name}</h2>
+      <div id="profile">
+        <h2>Hey {profile.user_metadata.full_name}</h2>
         <br />
         <Image
           width="100%" height="100%"
