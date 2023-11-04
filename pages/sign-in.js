@@ -68,8 +68,8 @@ export default function SignIn() {
             <div id="logobild">
               <Image
                 src="/public/img/Logo.png"
-                width="200%"
-                height="200%"
+                width="110px"
+                height="157px"
                 alt="Logo"
               /></div>
             <h1>NutriDish</h1>
@@ -89,8 +89,8 @@ export default function SignIn() {
               <div id="logobild">
                 <Image
                   src="/img/Logo.png"
-                  width="200%"
-                  height="200%"
+                  width="110px"
+                  height="157px"
                   alt="Logo"
                 /></div>
               <h1>NutriDish</h1>
@@ -110,8 +110,8 @@ export default function SignIn() {
               <div id="logobild">
                 <Image
                   src="/img/Logo.png"
-                  width="200%"
-                  height="200%"
+                  width="110px"
+                  height="157px"
                   alt="Logo"
                 /></div>
               <h1>NutriDish</h1>
