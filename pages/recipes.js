@@ -135,15 +135,15 @@ async function fetchRecipes() {
         }
         const recipeCard = `
         <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
-        <Image src="${recipe.image}" alt="${recipe.title}" width="100%">
-        <div class="recipe-container">
-        <h2>${recipe.title}</h2>
-        <p>${recipe.servings}</p>
-        <p>${recipe.time_to_cook} minutes</p>
-        </div>
-        </div>
-        ${favoriteIcon}
-         <br>`;
+          <Image src="${recipe.image}" alt="${recipe.title}" width="100%">
+          <div class="recipe-container">
+          <h2>${recipe.title}</h2>
+          <p>${recipe.servings}</p>
+          <p>${recipe.time_to_cook} minutes</p>
+          ${favoriteIcon}
+          </div>
+        </div>      
+        `;
         if (recipeGrid) {
           recipeGrid.innerHTML += recipeCard;
         }   
