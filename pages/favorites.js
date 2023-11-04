@@ -16,7 +16,7 @@ export default function Favorites({ user }) {
 
     </header>
     <main>
-      <h4>Favorites</h4>
+      <h1>Favorites</h1>
       <section className="recipe-grid" id="favoriteGrid">
       </section>
     </main>
