@@ -31,7 +31,7 @@ export default function Recipes({ user }) {
 
       </header>
       <main>
-        <h4>Recipe Collection</h4>
+        <h1>Recipe Collection</h1>
         <section className="recipe-grid" id="recipeGrid">
         </section>
       </main>
