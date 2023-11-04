@@ -29,7 +29,7 @@ export default function RecipeDetail({ user }) {
 
       </header>
       <main>
-        <h4>Recipe Detail</h4>
+        <h1>Recipe Detail</h1>
         <button id="backButton" onClick={backToRecipes}>Back</button>
         <section className="recipe-detail" id="recipeDetail">
         </section>
