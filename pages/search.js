@@ -8,7 +8,7 @@ function rangeSlide(value) {
 export default function Search({ user }) {
   return (
     <div style={{ maxWidth: '420px', margin: '96px auto' }}>
-      <h2 className="">Search</h2>
+      <h1 className="">Search</h1>
       <RangeSlider
           initialMin={2500}
           initialMax={7500}
