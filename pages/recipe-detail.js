@@ -96,8 +96,8 @@ async function fetchRecipe() {
         }
         const recipeCardDetail = `
         <div class="" id="${recipe.id}">
-        <Image width="100%" height="100%" src="${recipe.image}" alt="${recipe.title}" width="100%"/>
         ${likeButton}
+        <Image class="recipeimage" width="100%" height="100%" src="${recipe.image}" alt="${recipe.title}" width="100%"/>
         <div class="recipe-container">
         <h1>${recipe.title}</h1>
         <p>Servings: ${recipe.servings}</p>
