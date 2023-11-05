@@ -149,7 +149,7 @@ export default function Recipes({ user }) {
       });
     }
   }
-
+/*
   function toggleFilter() {
     if (document.getElementById("filterGrid").style.display === "none") {
       document.getElementById("filterGrid").style.display = "block";
@@ -157,31 +157,30 @@ export default function Recipes({ user }) {
       document.getElementById("filterGrid").style.display = "none";
     }
   }
-
+*/
   return (
       <div>
       <main>
-        <h1>Recipe Collection</h1>
-        <button id="toggleFilter" onClick={toggleFilter}>Filter</button>
+        <h1>Browse recipes</h1>
 
-        <div id='filterGrid' style={{display: 'none'}}>
-      <div className="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
-          <input id="lowcarb-checkbox" type="checkbox" value="" name="bordered-checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-          <label htmlFor="bordered-checkbox-1" className="w-full py-4 ml-2 text-sm font-medium">Low Carb</label>
+      <div id='filterGrid'>
+      <div className="filterstyle">
+          <input id="lowcarb-checkbox" type="checkbox" value="" name="bordered-checkbox"/>
+          <label htmlFor="bordered-checkbox-1">Low Carb</label>
       </div>
       <br/>
-      <div className="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
-          <input id="highprotein-checkbox" type="checkbox" value="" name="bordered-checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-          <label htmlFor="bordered-checkbox-1" className="w-full py-4 ml-2 text-sm font-medium">High Protein</label>
+      <div className="filterstyle">
+          <input id="highprotein-checkbox" type="checkbox" value="" name="bordered-checkbox"/>
+          <label htmlFor="bordered-checkbox-1">High Protein</label>
       </div> 
       <br/>
-      <select id="diet-dropdown" name="diet-dropdown" className="w-full py-4 ml-2 text-sm font-medium">
-        <option value="none">None</option>
+      <select id="diet-dropdown" name="diet-dropdown">
+        <option value="none">All</option>
         <option value="vegan">Vegan</option>
         <option value="vegetarian">Vegetarian</option>
       </select>
       
-      <button id="filterButton" onClick={filterRecipes}>Filter</button>
+      <button id="filterButton" onClick={filterRecipes}>Search</button>
       </div>
         <section className="recipe-grid" id="recipeGrid">
         </section>

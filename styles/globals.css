@@ -319,6 +319,64 @@ float: left;
   text-align: left;
 }
 
+/*Filter Style*/
+
+#filterGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content : center;
+  margin: 0 auto;
+  padding: 30px 0;
+  width: 810px;
+}
+
+.filterstyle{
+  width: 200px;
+  height: 56px;
+  margin: 0 10px;
+  padding: 13px 0 13px 13px;
+  border-radius: 7px;
+  background: rgba(217, 217, 217, 0.30);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.filterstyle input{
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  float: left;
+}
+
+.filterstyle label{
+  height: 30px;
+  line-height: 30px;
+  font-size: 20px;
+}
+
+#diet-dropdown {
+  padding-left: 10px;
+  height: 56px;
+  margin: 0 10px;
+  line-height: 30px;
+  font-size: 20px;
+  border-radius: 7px;
+  background: rgba(217, 217, 217, 0.30);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+#filterButton{
+  width: 25%;
+  max-width: 200px;
+  height: 56px;
+  margin: 0 10px;
+  border-radius: 7px; 
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #FFF;
+  font-size: 25px;
+  border: 0px;
+  background: var(--Primary-Green, #D4D577);
+}
+
 /************************************/
 /******** Rezepte*Detail*Page********/
 /************************************/
@@ -401,18 +459,6 @@ background: var(--Secondary-Green, #556736);
 
 
 #logoutButton{
-  margin: 20px 10% 20px 10%;
-  width: 200px;
-  height: 56px;
-  border-radius: 7px; 
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  color: #FFF;
-  font-size: 15px;
-  border: 0px;
-  background: var(--Primary-Green, #D4D577);
-}
-
-#filterButton{
   margin: 20px 10% 20px 10%;
   width: 200px;
   height: 56px;
@@ -819,6 +865,46 @@ input[type="range"]::-webkit-slider-thumb {
   }
 }
 
+@media only screen and (max-width: 900px) {
+
+   /*Rezeptfilter formatieren*/
+
+   #filterGrid {
+    width: 100%;
+  }
+  .filterstyle {
+    width: 25%;
+    height: 40px;
+    text-align: start;
+    padding: 6px 10px 6px 10px;
+    margin: 0 1%;
+  }
+  .filterstyle label{
+    height: 14px;
+    line-height: 0.1;
+    font-size: 15px;
+    
+  }
+  .filterstyle input{
+    width: 27px;
+    height: 27px;
+    margin-right: 10px;
+  }
+  #diet-dropdown{
+    width: 25%;
+    margin: 0;
+    height: 40px;
+    font-size: 15px;
+    margin: 0 1%;
+  }
+  #filterButton {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto 30px auto;
+  }
+
+}
+
 @media only screen and (max-width: 800px) {
   main{
     padding: 0 2%;
@@ -832,5 +918,29 @@ input[type="range"]::-webkit-slider-thumb {
   }
   #profile {
     padding-top: 150px;
+  }
+
+}
+
+@media only screen and (max-width: 700px) {
+ 
+   /*Rezeptfilter formatieren*/
+   #filterGrid {
+    display: block;
+    width: 100%;
+    padding: 0 20%;
+  }
+  .filterstyle {
+    margin: 0 auto;
+    width: 150px;
+  }
+
+  #diet-dropdown{
+    width: 150px;
+  }
+  #filterButton {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto 30px auto;
   }
 }

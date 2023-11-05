@@ -117,14 +117,15 @@ function MyApp({ Component, pageProps }) {
             <a href="/" className="navigation__link">Home</a>
           </li>
           <li className="navigation__item">
-            <a href="/profile" className="navigation__link">Profile</a>
-          </li>
-          <li className="navigation__item">
             <a href="/recipes" className="navigation__link">Recipes</a>
           </li>
           
           <li className="navigation__item">
             <a href="/favorites" className="navigation__link">Favorites</a>
+          </li>
+
+          <li className="navigation__item">
+            <a href="/profile" className="navigation__link">Profile</a>
           </li>
     </ul>
   </nav>  
