@@ -17,21 +17,172 @@ export default function Recipes({ user }) {
       localStorage.setItem("userID", profileData.id)
     }
   }
+  
+  async function filterRecipes() {
+    const highprotein = document.getElementById("highprotein-checkbox").checked;
+    const lowcarb = document.getElementById("lowcarb-checkbox").checked;
+    const diet = document.getElementById("diet-dropdown").value;
+    let proteinFilter = 0;
+    let carbohydrateFilter = 200;
+    if (highprotein === true) {
+      proteinFilter = 15;
+    }
+    if (lowcarb === true) {
+      carbohydrateFilter = 50;
+    }
 
-  async function checkIfIDExistsInFavorites(currentID) {
-    
+    recipeGrid.innerHTML = "";
+      
+
+    if (diet === "vegan") {
+      const { data, error } = await supabase
+      .from('recipes')
+      .select()
+      .eq('vegan', true)
+      .gte('protein', proteinFilter)
+      .lte('carbohydrate', carbohydrateFilter)
+      // Populate the recipe grid with data
+      data.forEach(recipe => {
+        const isFavorite = checkIfIDExistsInFavorites(recipe.id);
+        let favoriteIcon;
+        if (isFavorite === true) {
+          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`;
+        } else {
+          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fdisliked_empty.png&w=640&q=75" alt="signet" />`;
+        }
+        const recipeCard = `
+        <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
+          <Image src="${recipe.image}" alt="${recipe.title}" width="100%">
+          <div class="recipe-container">
+          <h2>${recipe.title}</h2>
+          <p>${recipe.servings}</p>
+          <p>${recipe.time_to_cook} minutes</p>
+          ${favoriteIcon}
+          </div>
+        </div>      
+        `;
+        if (recipeGrid) {
+          recipeGrid.innerHTML += recipeCard;
+        }   
+        let buttonName = "likeButton" + recipe.id;
+        // add eventlistener to favorite button
+        document.getElementById(buttonName).addEventListener("click", function() {
+          changeFavorite(recipe.id);
+          window.location.reload();
+        }); 
+        
+      });
+    } else if (diet === "vegetarian") {
+      const { data, error } = await supabase
+      .from('recipes')
+      .select()
+      .eq('vegetarian', true)
+      .gte('protein', proteinFilter)
+      .lte('carbohydrate', carbohydrateFilter)
+      // Populate the recipe grid with data
+      data.forEach(recipe => {
+        const isFavorite = checkIfIDExistsInFavorites(recipe.id);
+        let favoriteIcon;
+        if (isFavorite === true) {
+          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`;
+        } else {
+          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fdisliked_empty.png&w=640&q=75" alt="signet" />`;
+        }
+        const recipeCard = `
+        <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
+          <Image src="${recipe.image}" alt="${recipe.title}" width="100%">
+          <div class="recipe-container">
+          <h2>${recipe.title}</h2>
+          <p>${recipe.servings}</p>
+          <p>${recipe.time_to_cook} minutes</p>
+          ${favoriteIcon}
+          </div>
+        </div>      
+        `;
+        if (recipeGrid) {
+          recipeGrid.innerHTML += recipeCard;
+        }   
+        let buttonName = "likeButton" + recipe.id;
+        // add eventlistener to favorite button
+        document.getElementById(buttonName).addEventListener("click", function() {
+          changeFavorite(recipe.id);
+          window.location.reload();
+        }); 
+        
+      });
+    } else {
+      const { data, error } = await supabase
+      .from('recipes')
+      .select()
+      .gte('protein', proteinFilter)
+      .lte('carbohydrate', carbohydrateFilter)
+      // Populate the recipe grid with data
+      data.forEach(recipe => {
+        const isFavorite = checkIfIDExistsInFavorites(recipe.id);
+        let favoriteIcon;
+        if (isFavorite === true) {
+          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`;
+        } else {
+          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fdisliked_empty.png&w=640&q=75" alt="signet" />`;
+        }
+        const recipeCard = `
+        <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
+          <Image src="${recipe.image}" alt="${recipe.title}" width="100%">
+          <div class="recipe-container">
+          <h2>${recipe.title}</h2>
+          <p>${recipe.servings}</p>
+          <p>${recipe.time_to_cook} minutes</p>
+          ${favoriteIcon}
+          </div>
+        </div>      
+        `;
+        if (recipeGrid) {
+          recipeGrid.innerHTML += recipeCard;
+        }   
+        let buttonName = "likeButton" + recipe.id;
+        // add eventlistener to favorite button
+        document.getElementById(buttonName).addEventListener("click", function() {
+          changeFavorite(recipe.id);
+          window.location.reload();
+        }); 
+        
+      });
+    }
+  }
+
+  function toggleFilter() {
+    if (document.getElementById("filterGrid").style.display === "none") {
+      document.getElementById("filterGrid").style.display = "block";
+    } else {
+      document.getElementById("filterGrid").style.display = "none";
+    }
   }
 
   return (
       <div>
-      <header>
-        <div className="signetbild">
-          <Image width="100%" height="100%" src="/public/img/signet.png" alt="signet" />
-        </div>
-
-      </header>
       <main>
         <h1>Recipe Collection</h1>
+        <button id="toggleFilter" onClick={toggleFilter}>Filter</button>
+
+        <div id='filterGrid' style={{display: 'none'}}>
+      <div className="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
+          <input id="lowcarb-checkbox" type="checkbox" value="" name="bordered-checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+          <label htmlFor="bordered-checkbox-1" className="w-full py-4 ml-2 text-sm font-medium">Low Carb</label>
+      </div>
+      <br/>
+      <div className="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
+          <input id="highprotein-checkbox" type="checkbox" value="" name="bordered-checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+          <label htmlFor="bordered-checkbox-1" className="w-full py-4 ml-2 text-sm font-medium">High Protein</label>
+      </div> 
+      <br/>
+      <select id="diet-dropdown" name="diet-dropdown" className="w-full py-4 ml-2 text-sm font-medium">
+        <option value="none">None</option>
+        <option value="vegan">Vegan</option>
+        <option value="vegetarian">Vegetarian</option>
+      </select>
+      
+      <button id="filterButton" onClick={filterRecipes}>Filter</button>
+      </div>
         <section className="recipe-grid" id="recipeGrid">
         </section>
       </main>
@@ -48,38 +199,7 @@ function checkIfIDExistsInFavorites(currentID) {
     }
 }
 
-function listAllEventListeners() {
-  const allElements = Array.prototype.slice.call(document.querySelectorAll('*'));
-  allElements.push(document);
-  allElements.push(window);
-
-  const types = [];
-
-  for (let ev in window) {
-    if (/^on/.test(ev)) types[types.length] = ev;
-  }
-
-  let elements = [];
-  for (let i = 0; i < allElements.length; i++) {
-    const currentElement = allElements[i];
-    for (let j = 0; j < types.length; j++) {
-      if (typeof currentElement[types[j]] === 'function') {
-        elements.push({
-          "node": currentElement,
-          "type": types[j],
-          "func": currentElement[types[j]].toString(),
-        });
-      }
-    }
-  }
-
-  return elements.sort(function(a,b) {
-    return a.type.localeCompare(b.type);
-  });
-}
-
 async function changeFavorite(recipeID) {
-  console.log("changeFavorite called with " + recipeID);
   const isFavorite = checkIfIDExistsInFavorites(recipeID);
   if (isFavorite === true) {
     console.log(recipeID + " exists in favorites and will be deleted");
@@ -93,7 +213,6 @@ async function changeFavorite(recipeID) {
       return false;
     }
   } else {
-    console.log("ID does not exist in favorites");
     const { error } = await supabase
     .from('favorites')
     .insert({recipe_id: recipeID, user_id: localStorage.getItem('userID')})
@@ -128,10 +247,9 @@ async function fetchRecipes() {
         const isFavorite = checkIfIDExistsInFavorites(recipe.id);
         let favoriteIcon;
         if (isFavorite === true) {
-          console.log(recipe.id + " is " + isFavorite);
           favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`;
         } else {
-          favoriteIcon = `<Image  id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fdisliked.png&w=640&q=75" alt="signet" />`;
+          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fdisliked_empty.png&w=640&q=75" alt="signet" />`;
         }
         const recipeCard = `
         <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">

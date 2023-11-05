@@ -60,7 +60,7 @@ h1 {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  margin: 100px 0 20px 0;
+  margin: 40px 0 20px 0;
 }
 
 h2{
@@ -96,7 +96,7 @@ h4{
 width: 60px;
 margin-top: 20px;
 margin-right: 30px;
-float: right;
+float: left;
 }
 .signetbild img{
   width: 100%;
@@ -120,7 +120,7 @@ float: right;
   background-color: #fff;
   border-radius: 50%;
   z-index: 300;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
@@ -209,7 +209,7 @@ float: right;
   display: inline-block;
   width: 2.2rem;
   height: 2px;
-  background-color: #4A676A;
+  background-color: black;
 }
 
 
@@ -260,31 +260,6 @@ float: right;
 }
 
 /************************************/
-/************ Home Page***********/
-/************************************/
-
-.home img{
-  margin: 0 auto;
-  margin-top: 200px;
-}
-
-.home h1{
-  margin-top: 50px;
-}
-
-#Discover {
-  width: 150px;
-  height: 56px;
-  border-radius: 7px; 
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  color: #FFF;
-  font-size: 15px;
-  border: 0px;
-  background: var(--Primary-Green, #D4D577);
-  margin-top: 20px;
-} 
-
-/************************************/
 /************ Rezepte Page***********/
 /************************************/
 
@@ -330,10 +305,6 @@ float: right;
   right: 10px;
   width: 35px;
   height: 35px;
-}
-
-.recipe-container h1{
-  margin-top: 0;
 }
 
 .recipe-container h2{
@@ -427,41 +398,58 @@ background: var(--Secondary-Green, #556736);
   background: var(--Secondary-Green, #44522b    );
   }
 
+
+
 #logoutButton{
-  position: absolute;
-  top:2.2rem;
-  left:1.5rem;
-  width: 100px;
+  margin: 20px 10% 20px 10%;
+  width: 200px;
   height: 56px;
   border-radius: 7px; 
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  color: #000;
+  color: #FFF;
   font-size: 15px;
   border: 0px;
-  background: #f4f4f4;
+  background: var(--Primary-Green, #D4D577);
+}
+
+#filterButton{
+  margin: 20px 10% 20px 10%;
+  width: 200px;
+  height: 56px;
+  border-radius: 7px; 
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #FFF;
+  font-size: 15px;
+  border: 0px;
+  background: var(--Primary-Green, #D4D577);
+}
+
+#filterButton:hover{
+  background: var(--Primary-Green, #a9aa5f);
+}
+
+#logo {
+  cursor: pointer;
+  height: 80%;
+  width: 80%;
+  margin: 10px 20px;
+}
+
+.logoutIcon {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  margin: 35px;
 }
 
 #logoutButton:hover{
-  background: #dadada;
-  color: #fff;
+  background: var(--Primary-Green, #a9aa5f);
 }
 
 #backButton{
-  width: 100px;
+  cursor: pointer;
   float: left;
-  margin: 15px 0;
-  height: 56px;
-  border-radius: 7px; 
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  color: #000;
-  font-size: 15px;
-  border: 0px;
-  background: #f4f4f4;
-}
-
-#backButton:hover{
-  background: var(--Primary-Green, darkgrey);
-  color: #fff;
+  height: 300px;
 }
 
 .likeButtonActive{
@@ -810,6 +798,9 @@ input[type="range"]::-webkit-slider-thumb {
   .recipe-card {
    width: 31.33%;
   }
+  #profile {
+    padding-top: 150px;
+  }
 }
 
 @media only screen and (max-width: 1400px) {
@@ -823,18 +814,23 @@ input[type="range"]::-webkit-slider-thumb {
   .recipeimage {
     height: 400px;
   }
-
+  #profile {
+    padding-top: 150px;
+  }
 }
 
 @media only screen and (max-width: 800px) {
   main{
-    padding: 0 3%;
+    padding: 0 2%;
   }
   .recipe-card {
    width: 100%;
-   margin: 2% 0;
+   margin: 1% 0;
   }
   .recipeimage {
     height: 250px;
+  }
+  #profile {
+    padding-top: 150px;
   }
 }

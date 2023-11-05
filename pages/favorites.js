@@ -23,6 +23,14 @@ export default function Favorites({ user }) {
     </div>
 )
 }
+function checkIfIDExistsInFavorites(currentID) {
+  const favorites = JSON.parse(localStorage.getItem("favorites"));
+  if (favorites.includes(currentID)) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 async function fetchFavorites() {
   const favoriteCard = "";
@@ -44,14 +52,22 @@ async function fetchFavorites() {
         }
       } else {
       data.forEach(favorite => {
+        const isFavorite = checkIfIDExistsInFavorites(favorite.recipes.id);
+        let favoriteIcon;
+        if (isFavorite === true) {
+          favoriteIcon = `<Image id="likeButton${favorite.recipes.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`;
+        } else {
+          
+        }
         const favoriteCard = `
         <div class="recipe-card" id="${favorite.recipes.id}" onClick="localStorage.setItem('clickedItem', ${favorite.recipes.id}); window.location.href='/recipe-detail';">
-        <Image src="${favorite.recipes.image}" alt="${favorite.recipes.title}" width="100%">
-        <div class="recipe-container">
-        <h2>${favorite.recipes.title}</h2>
-        <p>${favorite.recipes.servings}</p>
-        <p>${favorite.recipes.time_to_cook} minutes</p>
-        </div>
+          <Image src="${favorite.recipes.image}" alt="${favorite.recipes.title}" width="100%">
+          <div class="recipe-container">
+            <h2>${favorite.recipes.title}</h2>
+            <p>${favorite.recipes.servings}</p>
+            <p>${favorite.recipes.time_to_cook} minutes</p>
+            ${favoriteIcon}
+          </div>
         </div> <br>`;
         if (favoriteGrid) {
           favoriteGrid.innerHTML += favoriteCard;

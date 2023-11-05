@@ -17,20 +17,15 @@ export default function RecipeDetail({ user }) {
     if (typeof window !== 'undefined') {
       window.localStorage.removeItem('clickedItem');
       window.history.go(-1)
+      window.location.reload();
     }
   }
   
   return (
     <div>
-      <header>
-        <div className="signetbild">
-          <Image width="100%" height="100%" src="/public/img/signet.png" alt="signet" />
-        </div>
-
-      </header>
       <main>
         <h1>Recipe Detail</h1>
-        <button id="backButton" onClick={backToRecipes}>Back</button>
+        <Image  id="backButton" width="40%" onClick={backToRecipes} height="40%" src="/img/back.png" alt="back" />
         <section className="recipe-detail" id="recipeDetail">
         </section>
       </main>
@@ -41,7 +36,6 @@ export default function RecipeDetail({ user }) {
 async function changeFavorite(recipeID) {
   const isFavorite = await checkIfIDExistsInFavorites(recipeID);
   if (isFavorite === true) {
-    console.log(recipeID + " exists in favorites and will be deleted");
     //delete this id from favorites
     const { data, error } = await supabase
     .from('favorites')
@@ -52,7 +46,6 @@ async function changeFavorite(recipeID) {
       return false;
     }
   } else {
-    console.log("ID does not exist in favorites");
     const { error } = await supabase
     .from('favorites')
     .insert({recipe_id: recipeID, user_id: localStorage.getItem('userID')})
@@ -88,7 +81,6 @@ async function fetchRecipe() {
       data.forEach(recipe => {
         const ingredientList = recipe.ingredients.split(',');
         let likeButton;
-        console.log(isFavorite);
         if (isFavorite === true) {
           likeButton = `<Image id="likeButton" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`
         } else {
@@ -103,8 +95,13 @@ async function fetchRecipe() {
         <p>Servings: ${recipe.servings}</p>
         <p>Time to cook: ${recipe.time_to_cook} minutes</p>
         <br/>
+        <h2>Nutritions (per serving)</h2>
+        <p>Proteins: ${recipe.protein}g</p>
+        <p>Fat: ${recipe.fat}g</p>
+        <p>Carbohydrates: ${recipe.carbohydrate}g</p>
+        <br/>
         <h2>Ingredients</h2>
-        <p>${ingredientList}}</p>
+        <p>${ingredientList}</p>
         <br/>
         <h2>Instructions</h2>
         <p>${recipe.description}</p>

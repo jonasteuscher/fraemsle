@@ -37,12 +37,15 @@ export default function Profile() {
         <br />
         <br />
         <p>{profile.email}</p>
+        <button id="logoutButton" onClick={signOut}>Sign Out</button>
+
       </div>)
   } else {
     return (
       <div style={{ maxWidth: '420px', margin: '96px auto' }}>
         <h2>Hello, {profile.email}</h2>
         <p>User ID: {profile.id}</p>
+        <button id="logoutButton" onClick={signOut}>Sign Out</button>
       </div>
     )
   }

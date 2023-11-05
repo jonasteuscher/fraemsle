@@ -20,13 +20,13 @@ export default function Home() {
     <div>
       <header>
         <div>
-          <div id="logobild">
-            <Image
-              src="/public/img/Logo.png"
-              width="200%"
-              height="200%"
-              alt="Logo"
-            /></div>
+        <div id="logobild">
+                <Image
+                  src="/img/Logo.png"
+                  width="110px"
+                  height="157px"
+                  alt="Logo"
+                /></div>
           <h1>NutriDish</h1>
           <h2 id="slogan">Discover the power of healthy food!</h2>
           {error &&

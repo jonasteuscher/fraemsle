@@ -26,22 +26,6 @@ export default function SignIn() {
       setRedirect(true);
     }
   }
-  async function signInWithFacebook() {
-    const { data, error } = await supabase.auth.signIn({
-      provider: 'facebook',
-      options: {
-        queryParams: {
-          access_type: 'offline',
-          prompt: 'consent',
-        },
-      },
-    })
-    if (error) {
-      console.log({ error })
-    } else {
-      setRedirect(true);
-    }
-  }
   async function signIn() {
     const { error, data } = await supabase.auth.signIn({
       email

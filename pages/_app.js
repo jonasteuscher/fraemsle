@@ -51,6 +51,7 @@ function MyApp({ Component, pageProps }) {
     })
   }
   async function signOut() {
+    document.getElementById("nav-toggle").click();
     await supabase.auth.signOut();
     localStorage.clear();
     router.push('/sign-in')
@@ -83,44 +84,53 @@ function MyApp({ Component, pageProps }) {
     // Converting the object to a JSON string with formatting (optional)
     return queryObject;
   }
+
+  function backHome() {
+    window.location.href = "/";
+  }
   return (
     
     <div>
       <title>NutriDish</title>
+      <header>
+        <div className="signetbild">
+          <img id="logo" width="100%" height="100%" src="/img/Logo.png" onClick={backHome} alt="signet" />
+        </div>
 
-      <div class="navigation">
-      <input type="checkbox" class="navigation__checkbox" id="nav-toggle"></input>
-      <label for="nav-toggle" class="navigation__button">
-        <span class="navigation__icon" aria-label="toggle navigation menu"></span>
+      </header>
+
+      <div className="navigation">
+      <input type="checkbox" className="navigation__checkbox" id="nav-toggle"></input>
+      <label htmlFor="nav-toggle" className="navigation__button">
+        <span className="navigation__icon" aria-label="toggle navigation menu"></span>
       </label>
-      <div class="navigation__background"></div>
+      <div className="navigation__background"></div>
 
-      <nav class="navigation__nav" role="navigation">
-        <ul class="navigation__list">
-          <li class="navigation__item">
-            <a href="/" class="navigation__link">Home</a>
+      <nav className="navigation__nav" role="navigation">
+      <img      src="/img/logout.png"
+                  alt="Logout"
+                  className="logoutIcon"
+                  onClick={signOut}
+                />
+        <ul className="navigation__list">
+          <li className="navigation__item">
+            <a href="/" className="navigation__link">Home</a>
           </li>
-          <li class="navigation__item">
-            <a href="/profile" class="navigation__link">Profile</a>
+          <li className="navigation__item">
+            <a href="/profile" className="navigation__link">Profile</a>
           </li>
-          <li class="navigation__item">
-            <a href="/recipes" class="navigation__link">Recipes</a>
+          <li className="navigation__item">
+            <a href="/recipes" className="navigation__link">Recipes</a>
           </li>
-          <li class="navigation__item">
-            <a href="/search" class="navigation__link">Search</a>
-          </li>
-          <li class="navigation__item">
-            <a href="/favorites" class="navigation__link">Favorites</a>
+          
+          <li className="navigation__item">
+            <a href="/favorites" className="navigation__link">Favorites</a>
           </li>
     </ul>
   </nav>  
   </div>
       
-      {
-        authenticatedState === 'authenticated' && (
-          <button id="logoutButton" onClick={signOut}>Sign Out</button>
-        )
-      }
+     
       <Component {...pageProps} error={error} />
     </div>
   )
