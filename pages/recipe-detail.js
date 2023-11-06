@@ -5,7 +5,8 @@ import Image from 'next/image'
 
 export default function RecipeDetail({ user }) {
   useEffect(() => {
-    fetchRecipe();
+    if (localStorage.getItem('clickedItem')) {
+    fetchRecipeDetail();}
     checkItem();
   }, [])
   function checkItem() {
@@ -69,7 +70,8 @@ async function checkIfIDExistsInFavorites(currentID) {
   return data.length > 0;
 }
 
-async function fetchRecipe() {
+async function fetchRecipeDetail() {
+  console.log(localStorage.getItem('clickedItem'));
   try {
     const { data, error } = await supabase
       .from('recipes')

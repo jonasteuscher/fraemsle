@@ -201,7 +201,6 @@ function checkIfIDExistsInFavorites(currentID) {
 async function changeFavorite(recipeID) {
   const isFavorite = checkIfIDExistsInFavorites(recipeID);
   if (isFavorite === true) {
-    console.log(recipeID + " exists in favorites and will be deleted");
     //delete this id from favorites
     const { data, error } = await supabase
     .from('favorites')
@@ -226,7 +225,9 @@ async function changeFavorite(recipeID) {
       data.forEach(favorite => {
         favorites.push(favorite.recipe_id);
       });
-      if (error) console.log("error", error);
+      if (error) {
+        console.log("error", error);
+      }
       else {
         localStorage.setItem("favorites", JSON.stringify(favorites));
       }
