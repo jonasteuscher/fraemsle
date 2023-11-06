@@ -907,7 +907,6 @@ input[type="range"]::-webkit-slider-thumb {
     max-width: 400px;
     margin: 20px auto 30px auto;
   }
-
 }
 
 @media only screen and (max-width: 800px) {
@@ -924,6 +923,9 @@ input[type="range"]::-webkit-slider-thumb {
   #profile {
     padding-top: 150px;
   }
+  #logobild {
+    display: none;
+  }
 
 }
 
@@ -934,6 +936,9 @@ input[type="range"]::-webkit-slider-thumb {
     display: block;
     width: 100%;
     padding: 0 20%;
+  }
+  #logobild {
+    display: none;
   }
   .filterstyle {
     margin: 0 auto;
