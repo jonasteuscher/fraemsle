@@ -409,6 +409,13 @@ text-align: left;
   margin: 30px 0 40px 0;
 }
 
+#logobildHome {
+  display: flex;   
+  justify-content: center;   
+  align-items: center;
+  margin: 30px 0 40px 0;
+}
+
 #slogan {
   width: 60%;
   margin: 15px 20% 15px 20%;

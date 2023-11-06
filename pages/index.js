@@ -20,7 +20,7 @@ export default function Home() {
     <div>
       <header>
         <div>
-        <div id="logobild">
+        <div id="logobildHome">
                 <Image
                   src="/img/Logo.png"
                   width="110px"
