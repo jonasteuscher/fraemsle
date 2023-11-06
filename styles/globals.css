@@ -492,10 +492,16 @@ background: var(--Secondary-Green, #556736);
   background: var(--Primary-Green, #a9aa5f);
 }
 
+#RecipeDetailPage {
+  position: relative;
+}
+
 #backButton{
   cursor: pointer;
-  float: left;
-  height: 300px;
+  width: 50px;
+  position: absolute;
+  top: 80px;
+  left: 5%;
 }
 
 .likeButtonActive{

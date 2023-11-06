@@ -23,9 +23,9 @@ export default function RecipeDetail({ user }) {
   
   return (
     <div>
-      <main>
+      <main id="RecipeDetailPage">
         <h1>Recipe Detail</h1>
-        <Image  id="backButton" width="40%" onClick={backToRecipes} height="40%" src="/img/back.png" alt="back" />
+        <div id="backButton"><Image width="100%" onClick={backToRecipes} height="100%" src="/img/back.png" alt="back" /></div>
         <section className="recipe-detail" id="recipeDetail">
         </section>
       </main>
