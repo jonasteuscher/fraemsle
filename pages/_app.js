@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { supabase } from '../client'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
@@ -94,7 +95,7 @@ function MyApp({ Component, pageProps }) {
       <title>NutriDish</title>
       <header>
         <div className="signetbild">
-          <img id="logo" width="100%" height="100%" src="/img/Logo.png" onClick={backHome} alt="signet" />
+          <Image height="80px" width="60px"  src="/img/Logo.png" onClick={backHome} alt="signet" />
         </div>
 
       </header>
