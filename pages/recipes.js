@@ -123,7 +123,6 @@ export default function Recipes({ user }) {
       .select()
       .gte('protein', proteinFilter)
       .lte('carbohydrate', carbohydrateFilter)
-      // Populate the recipe grid with data
       data.forEach(recipe => {
         const isFavorite = checkIfIDExistsInFavorites(recipe.id);
         let favoriteIcon;
