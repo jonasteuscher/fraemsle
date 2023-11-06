@@ -479,8 +479,7 @@ background: var(--Secondary-Green, #556736);
 
 .logoutIcon {
   cursor: pointer;
-  width: 60px;
-  height: 60px;
+  position: inherit;
   margin: 35px;
 }
 

@@ -108,13 +108,14 @@ function MyApp({ Component, pageProps }) {
       <div className="navigation__background"></div>
 
       <nav className="navigation__nav" role="navigation">
-      <picture>
-      <img      src="/img/logout.png"
+      <div className='logoutIcon'>
+        <Image    src="/img/logout.png"
                   alt="Logout"
-                  className="logoutIcon"
+                  width="60px"
+                  height="60px"
                   onClick={signOut}
                 />
-                </picture>
+        </div>
         <ul className="navigation__list">
           <li className="navigation__item">
             <a href="/" className="navigation__link">Home</a>
