@@ -8,7 +8,7 @@ export default function Profile() {
   const [profile, setProfile] = useState(null)
   const router = useRouter()
   useEffect(() => {
-    fetchProfile()
+    fetchProfile();
   }, [])
   async function fetchProfile() {
     const profileData = await supabase.auth.user()
