@@ -6,7 +6,7 @@ import Image from 'next/image'
 export default function RecipeDetail({ user }) {
   useEffect(() => {
     if (localStorage.getItem('clickedItem')) {
-    fetchRecipeDetail();}
+    fetchRecipe();}
     checkItem();
   }, [])
   function checkItem() {
@@ -16,9 +16,10 @@ export default function RecipeDetail({ user }) {
   }
   function backToRecipes() {
     if (typeof window !== 'undefined') {
+      fetchFavorites();
+      fetchRecipe();
       window.localStorage.removeItem('clickedItem');
       window.history.go(-1)
-      window.location.reload();
     }
   }
   
@@ -35,8 +36,11 @@ export default function RecipeDetail({ user }) {
 }
 
 async function changeFavorite(recipeID) {
+  const favorites = JSON.parse(localStorage.getItem("favorites"));
   const isFavorite = await checkIfIDExistsInFavorites(recipeID);
   if (isFavorite === true) {
+    const filteredItems = favorites.filter((item) => item !== recipeID);
+    localStorage.setItem('favorites', JSON.stringify(filteredItems));
     //delete this id from favorites
     const { data, error } = await supabase
     .from('favorites')
@@ -47,6 +51,10 @@ async function changeFavorite(recipeID) {
       return false;
     }
   } else {
+    // Add the new recipeID to the favorites array if it doesn't already exist
+    favorites.push(recipeID);
+    // Update the localStorage with the new favorites array
+    localStorage.setItem('favorites', JSON.stringify(favorites));
     const { error } = await supabase
     .from('favorites')
     .insert({recipe_id: recipeID, user_id: localStorage.getItem('userID')})
@@ -54,6 +62,47 @@ async function changeFavorite(recipeID) {
     window.location.reload();
   }
 
+  async function fetchFavorites() {
+    const favoriteCard = "";
+    let favoriteGrid;
+    const { data, error } = await supabase.from("favorites").select(`
+      id, 
+      created_at, 
+      recipes(id, title, description, ingredients, servings, image, protein, fat, carbohydrate, vegan, vegetarian, recipe_added, time_to_cook)
+    `);
+      if (error) console.log("error", error);
+      else {
+        // data is empty
+        if (data.length === 0) {
+          const favoriteCard = `
+          <div>
+          <p> No favorites yet. You cann add favorite recipes by clicking on the heart button!</p>
+          </div>`;
+          if (favoriteGrid !== undefined) {
+            favoriteGrid.innerHTML += favoriteCard;
+          }
+        } else {
+        data.forEach(favorite => {
+          const isFavorite = checkIfIDExistsInFavorites(favorite.recipes.id);
+          let favoriteIcon;
+          favoriteIcon = `<Image id="likeButton${favorite.recipes.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`;
+          const favoriteCard = `
+          <div class="recipe-card" id="${favorite.recipes.id}" onClick="localStorage.setItem('clickedItem', ${favorite.recipes.id}); window.location.href='/recipe-detail';">
+            <Image src="${favorite.recipes.image}" alt="${favorite.recipes.title}" width="100%">
+            <div class="recipe-container">
+              <h2>${favorite.recipes.title}</h2>
+              <p>${favorite.recipes.servings}</p>
+              <p>${favorite.recipes.time_to_cook} minutes</p>
+              ${favoriteIcon}
+            </div>
+          </div> <br>`;
+          if (favoriteGrid) {
+            favoriteGrid.innerHTML += favoriteCard;
+          }   
+        });
+      } 
+      }
+  }
 
 async function checkIfIDExistsInFavorites(currentID) {
   // check if id is in table favorites
@@ -70,8 +119,7 @@ async function checkIfIDExistsInFavorites(currentID) {
   return data.length > 0;
 }
 
-async function fetchRecipeDetail() {
-  console.log(localStorage.getItem('clickedItem'));
+async function fetchRecipe() {
   try {
     const { data, error } = await supabase
       .from('recipes')

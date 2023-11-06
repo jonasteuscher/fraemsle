@@ -17,24 +17,44 @@ export default function Recipes({ user }) {
       localStorage.setItem("userID", profileData.id)
     }
   }
+
+  function resetFilter() {
+    document.getElementById("highprotein-checkbox").checked = false;
+    document.getElementById("lowcarb-checkbox").checked = false;
+    document.getElementById("diet-dropdown").value = "none";
+    fetchRecipes();
+  }
   
-  async function filterRecipes() {
+  async function fetchRecipes() {
     const highprotein = document.getElementById("highprotein-checkbox").checked;
     const lowcarb = document.getElementById("lowcarb-checkbox").checked;
     const diet = document.getElementById("diet-dropdown").value;
+    var preferencesArray = [
+      { name: "proteins", value: highprotein },
+      { name: "carbs", value: lowcarb },
+      { name: "diet", value: diet }
+    ];
+     // Store the array in localStorage as a string
+    localStorage.setItem('preferences', JSON.stringify(preferencesArray));
+
+    // Retrieve the array from localStorage and parse it to an array
+    var storedPreferences = JSON.parse(localStorage.getItem('preferences'));
+
+    // Find the proteins object in the array and log its value
+    var proteinsObj = storedPreferences.find(item => item.name === 'proteins');
+    var carbsObj = storedPreferences.find(item => item.name === 'carbs');
+    var dietObj = storedPreferences.find(item => item.name === 'diet');
+    
     let proteinFilter = 0;
     let carbohydrateFilter = 200;
-    if (highprotein === true) {
+    if (proteinsObj.value === true) {
       proteinFilter = 15;
     }
-    if (lowcarb === true) {
+    if (carbsObj.value === true) {
       carbohydrateFilter = 50;
     }
-
     recipeGrid.innerHTML = "";
-      
-
-    if (diet === "vegan") {
+    if (dietObj.value === "vegan") {
       const { data, error } = await supabase
       .from('recipes')
       .select()
@@ -64,12 +84,6 @@ export default function Recipes({ user }) {
         if (recipeGrid) {
           recipeGrid.innerHTML += recipeCard;
         }   
-        let buttonName = "likeButton" + recipe.id;
-        // add eventlistener to favorite button
-        document.getElementById(buttonName).addEventListener("click", function() {
-          changeFavorite(recipe.id);
-          window.location.reload();
-        }); 
         
       });
     } else if (diet === "vegetarian") {
@@ -102,13 +116,6 @@ export default function Recipes({ user }) {
         if (recipeGrid) {
           recipeGrid.innerHTML += recipeCard;
         }   
-        let buttonName = "likeButton" + recipe.id;
-        // add eventlistener to favorite button
-        document.getElementById(buttonName).addEventListener("click", function() {
-          changeFavorite(recipe.id);
-          window.location.reload();
-        }); 
-        
       });
     } else {
       const { data, error } = await supabase
@@ -139,13 +146,6 @@ export default function Recipes({ user }) {
         if (recipeGrid) {
           recipeGrid.innerHTML += recipeCard;
         }   
-        let buttonName = "likeButton" + recipe.id;
-        // add eventlistener to favorite button
-        document.getElementById(buttonName).addEventListener("click", function() {
-          changeFavorite(recipe.id);
-          window.location.reload();
-        }); 
-        
       });
     }
   }
@@ -180,7 +180,10 @@ export default function Recipes({ user }) {
         <option value="vegetarian">Vegetarian</option>
       </select>
       
-      <button id="filterButton" onClick={filterRecipes}>Search</button>
+      <button id="filterButton" onClick={fetchRecipes}>Search</button>
+      <button id="resetFilterButton" onClick={resetFilter}>Reset Filter</button>
+      <br/>
+      <br/>
       </div>
         <section className="recipe-grid" id="recipeGrid">
         </section>
@@ -198,24 +201,7 @@ function checkIfIDExistsInFavorites(currentID) {
     }
 }
 
-async function changeFavorite(recipeID) {
-  const isFavorite = checkIfIDExistsInFavorites(recipeID);
-  if (isFavorite === true) {
-    //delete this id from favorites
-    const { data, error } = await supabase
-    .from('favorites')
-    .delete()
-    .eq('recipe_id', recipeID);
-    if (error) {
-      console.error("Error deleting data:", error);
-      return false;
-    }
-  } else {
-    const { error } = await supabase
-    .from('favorites')
-    .insert({recipe_id: recipeID, user_id: localStorage.getItem('userID')})
-    }
-  }
+
 
   //fetchFavorites();
   async function fetchFavorites() {
@@ -237,48 +223,6 @@ async function changeFavorite(recipeID) {
 }
 
 
-async function fetchRecipes() {
-  try {
-    const { data, error } = await supabase.from("recipes").select();
-    if (error) console.log("error", error);
-    else {
-      // Populate the recipe grid with data
-      data.forEach(recipe => {
-        const isFavorite = checkIfIDExistsInFavorites(recipe.id);
-        let favoriteIcon;
-        if (isFavorite === true) {
-          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`;
-        } else {
-          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fdisliked_empty.png&w=640&q=75" alt="signet" />`;
-        }
-        const recipeCard = `
-        <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
-          <Image src="${recipe.image}" alt="${recipe.title}" width="100%">
-          <div class="recipe-container">
-          <h2>${recipe.title}</h2>
-          <p>${recipe.servings}</p>
-          <p>${recipe.time_to_cook} minutes</p>
-          ${favoriteIcon}
-          </div>
-        </div>      
-        `;
-        if (recipeGrid) {
-          recipeGrid.innerHTML += recipeCard;
-        }   
-        let buttonName = "likeButton" + recipe.id;
-        // add eventlistener to favorite button
-        document.getElementById(buttonName).addEventListener("click", function() {
-          changeFavorite(recipe.id);
-          window.location.reload();
-        }); 
-        
-      });
-
-    }
-  } catch (error) {
-      console.error("An error occurred while fetching data", error);
-  }
-}
 
 export async function getServerSideProps({ req }) {
   const { user } = await supabase.auth.api.getUserByCookie(req)

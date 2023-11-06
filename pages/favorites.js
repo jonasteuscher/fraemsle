@@ -9,12 +9,7 @@ export default function Favorites({ user }) {
   }, [])
   return (
     <div>
-    <header>
-      <div className="signetbild">
-        <Image width="100%" height="100%" src="/public/img/signet.png" alt="signet" />
-      </div>
-
-    </header>
+    
     <main>
       <h1>Favorites</h1>
       <section className="recipe-grid" id="favoriteGrid">
@@ -72,6 +67,7 @@ async function fetchFavorites() {
     } 
     }
 }
+
 export async function getServerSideProps({ req }) {
   const { user } = await supabase.auth.api.getUserByCookie(req)
 

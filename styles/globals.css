@@ -483,6 +483,10 @@ background: var(--Secondary-Green, #556736);
   margin: 35px;
 }
 
+#resetFilterButton {
+  text-decoration: underline;
+}
+
 #logoutButton:hover{
   background: var(--Primary-Green, #a9aa5f);
 }
