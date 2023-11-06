@@ -54,11 +54,7 @@ async function fetchFavorites() {
       data.forEach(favorite => {
         const isFavorite = checkIfIDExistsInFavorites(favorite.recipes.id);
         let favoriteIcon;
-        if (isFavorite === true) {
-          favoriteIcon = `<Image id="likeButton${favorite.recipes.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`;
-        } else {
-          
-        }
+        favoriteIcon = `<Image id="likeButton${favorite.recipes.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`;
         const favoriteCard = `
         <div class="recipe-card" id="${favorite.recipes.id}" onClick="localStorage.setItem('clickedItem', ${favorite.recipes.id}); window.location.href='/recipe-detail';">
           <Image src="${favorite.recipes.image}" alt="${favorite.recipes.title}" width="100%">
