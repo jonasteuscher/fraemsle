@@ -1,6 +1,5 @@
 import '../styles/globals.css'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { supabase } from '../client'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -93,29 +92,27 @@ function MyApp({ Component, pageProps }) {
     
     <div>
       <title>NutriDish</title>
+      
       <header>
         <div className="signetbild">
           <Image height="80px" width="60px"  src="/img/Logo.png" onClick={backHome} alt="signet" />
         </div>
-
       </header>
-
       <div className="navigation">
       <input type="checkbox" className="navigation__checkbox" id="nav-toggle"></input>
       <label htmlFor="nav-toggle" className="navigation__button">
         <span className="navigation__icon" aria-label="toggle navigation menu"></span>
       </label>
       <div className="navigation__background"></div>
-
       <nav className="navigation__nav" role="navigation">
-      <div className='logoutIcon'>
-        <Image    src="/img/logout.png"
-                  alt="Logout"
-                  width="60px"
-                  height="60px"
-                  onClick={signOut}
-                />
-        </div>
+        <div className='logoutIcon'>
+          <Image    src="/img/logout.png"
+                    alt="Logout"
+                    width="60px"
+                    height="60px"
+                    onClick={signOut}
+                  />
+          </div>
         <ul className="navigation__list">
           <li className="navigation__item">
             <a href="/" className="navigation__link">Home</a>
@@ -123,7 +120,6 @@ function MyApp({ Component, pageProps }) {
           <li className="navigation__item">
             <a href="/recipes" className="navigation__link">Recipes</a>
           </li>
-          
           <li className="navigation__item">
             <a href="/favorites" className="navigation__link">Favorites</a>
           </li>
@@ -131,11 +127,10 @@ function MyApp({ Component, pageProps }) {
           <li className="navigation__item">
             <a href="/profile" className="navigation__link">Profile</a>
           </li>
-    </ul>
-  </nav>  
+        </ul>
+      </nav>  
   </div>
       
-     
       <Component {...pageProps} error={error} />
     </div>
   )

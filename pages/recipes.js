@@ -29,125 +29,60 @@ export default function Recipes({ user }) {
     const highprotein = document.getElementById("highprotein-checkbox").checked;
     const lowcarb = document.getElementById("lowcarb-checkbox").checked;
     const diet = document.getElementById("diet-dropdown").value;
-    var preferencesArray = [
+  
+    const preferencesArray = [
       { name: "proteins", value: highprotein },
       { name: "carbs", value: lowcarb },
-      { name: "diet", value: diet }
+      { name: "diet", value: diet },
     ];
-     // Store the array in localStorage as a string
-    localStorage.setItem('preferences', JSON.stringify(preferencesArray));
-
-    // Retrieve the array from localStorage and parse it to an array
-    var storedPreferences = JSON.parse(localStorage.getItem('preferences'));
-
-    // Find the proteins object in the array and log its value
-    var proteinsObj = storedPreferences.find(item => item.name === 'proteins');
-    var carbsObj = storedPreferences.find(item => item.name === 'carbs');
-    var dietObj = storedPreferences.find(item => item.name === 'diet');
-    
-    let proteinFilter = 0;
-    let carbohydrateFilter = 200;
-    if (proteinsObj.value === true) {
-      proteinFilter = 15;
-    }
-    if (carbsObj.value === true) {
-      carbohydrateFilter = 50;
-    }
+  
+    localStorage.setItem("preferences", JSON.stringify(preferencesArray));
+    const storedPreferences = JSON.parse(localStorage.getItem("preferences"));
+  
+    const proteinsObj = storedPreferences.find((item) => item.name === "proteins");
+    const carbsObj = storedPreferences.find((item) => item.name === "carbs");
+  
+    const proteinFilter = proteinsObj ? (proteinsObj.value ? 15 : 0) : 0;
+    const carbohydrateFilter = carbsObj ? (carbsObj.value ? 50 : 200) : 200;
+  
     recipeGrid.innerHTML = "";
-    if (dietObj.value === "vegan") {
-      const { data, error } = await supabase
-      .from('recipes')
-      .select()
-      .eq('vegan', true)
-      .gte('protein', proteinFilter)
-      .lte('carbohydrate', carbohydrateFilter)
-      // Populate the recipe grid with data
-      data.forEach(recipe => {
-        const isFavorite = checkIfIDExistsInFavorites(recipe.id);
-        let favoriteIcon;
-        if (isFavorite === true) {
-          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`;
-        } else {
-          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fdisliked_empty.png&w=640&q=75" alt="signet" />`;
-        }
-        const recipeCard = `
-        <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
-          <Image src="${recipe.image}" alt="${recipe.title}" width="100%">
-          <div class="recipe-container">
-          <h2>${recipe.title}</h2>
-          <p>${recipe.servings}</p>
-          <p>${recipe.time_to_cook} minutes</p>
-          ${favoriteIcon}
-          </div>
-        </div>      
-        `;
-        if (recipeGrid) {
-          recipeGrid.innerHTML += recipeCard;
-        }   
-        
-      });
+  
+    let supabaseQuery = supabase.from("recipes").select().gte("protein", proteinFilter).lte("carbohydrate", carbohydrateFilter);
+  
+    if (diet === "vegan") {
+      supabaseQuery = supabaseQuery.eq("vegan", true);
     } else if (diet === "vegetarian") {
-      const { data, error } = await supabase
-      .from('recipes')
-      .select()
-      .eq('vegetarian', true)
-      .gte('protein', proteinFilter)
-      .lte('carbohydrate', carbohydrateFilter)
-      // Populate the recipe grid with data
-      data.forEach(recipe => {
-        const isFavorite = checkIfIDExistsInFavorites(recipe.id);
-        let favoriteIcon;
-        if (isFavorite === true) {
-          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`;
-        } else {
-          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fdisliked_empty.png&w=640&q=75" alt="signet" />`;
-        }
-        const recipeCard = `
-        <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
-          <Image src="${recipe.image}" alt="${recipe.title}" width="100%">
-          <div class="recipe-container">
-          <h2>${recipe.title}</h2>
-          <p>${recipe.servings}</p>
-          <p>${recipe.time_to_cook} minutes</p>
-          ${favoriteIcon}
-          </div>
-        </div>      
-        `;
-        if (recipeGrid) {
-          recipeGrid.innerHTML += recipeCard;
-        }   
-      });
-    } else {
-      const { data, error } = await supabase
-      .from('recipes')
-      .select()
-      .gte('protein', proteinFilter)
-      .lte('carbohydrate', carbohydrateFilter)
-      data.forEach(recipe => {
-        const isFavorite = checkIfIDExistsInFavorites(recipe.id);
-        let favoriteIcon;
-        if (isFavorite === true) {
-          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75" alt="signet" />`;
-        } else {
-          favoriteIcon = `<Image id="likeButton${recipe.id}" width="10%" height="20%" src="/_next/image?url=%2Fimg%2Fdisliked_empty.png&w=640&q=75" alt="signet" />`;
-        }
-        const recipeCard = `
-        <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
-          <Image src="${recipe.image}" alt="${recipe.title}" width="100%">
-          <div class="recipe-container">
-          <h2>${recipe.title}</h2>
-          <p>${recipe.servings}</p>
-          <p>${recipe.time_to_cook} minutes</p>
-          ${favoriteIcon}
-          </div>
-        </div>      
-        `;
-        if (recipeGrid) {
-          recipeGrid.innerHTML += recipeCard;
-        }   
-      });
+      supabaseQuery = supabaseQuery.eq("vegetarian", true);
     }
+  
+    const { data, error } = await supabaseQuery;
+  
+    data.forEach((recipe) => {
+      const isFavorite = checkIfIDExistsInFavorites(recipe.id);
+      const favoriteIconSrc = isFavorite
+        ? "/_next/image?url=%2Fimg%2Fliked.png&w=640&q=75"
+        : "/_next/image?url=%2Fimg%2Fdisliked_empty.png&w=640&q=75";
+  
+      const recipeCard = `
+        <div class="recipe-card" id="${recipe.id}" onClick="localStorage.setItem('clickedItem', ${recipe.id}); window.location.href='/recipe-detail';">
+          <img src="${recipe.image}" alt="${recipe.title}" width="100%">
+          <div class="recipe-container">
+            <h2>${recipe.title}</h2>
+            <p>${recipe.servings}</p>
+            <p>${recipe.time_to_cook} minutes</p>
+            <img id="likeButton${recipe.id}" width="10%" height="20%" src="${favoriteIconSrc}" alt="signet" />
+          </div>
+        </div>
+      `;
+  
+      if (recipeGrid) {
+        recipeGrid.innerHTML += recipeCard;
+      }
+    });
   }
+  
+  
+  
 /*
   function toggleFilter() {
     if (document.getElementById("filterGrid").style.display === "none") {
