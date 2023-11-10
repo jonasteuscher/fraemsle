@@ -40,7 +40,7 @@ async function fetchFavorites() {
       if (data.length === 0) {
         const favoriteCard = `
         <div>
-        <p> No favorites yet. You cann add favorite recipes by clicking on the heart button!</p>
+        <p> No favorites yet. You can add favorite recipes by clicking on the heart button!</p>
         </div>`;
         if (favoriteGrid) {
           favoriteGrid.innerHTML += favoriteCard;
